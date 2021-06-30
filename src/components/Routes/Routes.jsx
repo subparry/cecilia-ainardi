@@ -7,15 +7,18 @@ const Routes = () => {
   return (
     <Switch>
       <Route exact path="/" component={Landing} />
-      {sections.map(({ path }) => (
-        <Route
-          exact
-          path={path}
-          render={(props) => {
-            return <Section {...props} />;
-          }}
-        />
-      ))}
+      {sections.map((section) =>
+        section.noRoute ? null : (
+          <Route
+            exact
+            key={section.label}
+            path={section.path}
+            render={(props) => {
+              return <Section {...props} {...section} />;
+            }}
+          />
+        )
+      )}
     </Switch>
   );
 };
